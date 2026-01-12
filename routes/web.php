@@ -14,14 +14,14 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 
-// --- 2. SHORTCUT ADMIN (Sesuai permintaan: Tinggal Klik) ---
+// --- 2. SHORTCUT ADMIN LOGIN ---
 Route::get('/login-admin', function() {
     $admin = User::where('is_admin', true)->first();
     auth()->login($admin);
     return redirect()->route('tickets.index');
 });
 
-// --- 3. ROUTES UTAMA (Harus Login) ---
+// --- 3. ROUTES UTAMA ---
 Route::middleware('auth')->group(function () {
     Route::get('/', function () { return redirect()->route('tickets.index'); });
     

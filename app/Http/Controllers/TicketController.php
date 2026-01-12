@@ -53,17 +53,14 @@ class TicketController extends Controller
         return redirect()->route('tickets.index');
     }
 
-    // Detail tiket & Diskusi
     public function show(Ticket $ticket)
     {
-        // Cek hak akses
         if (!auth()->user()->is_admin && $ticket->user_id != auth()->id()) {
             abort(403);
         }
         return view('tickets.show', compact('ticket'));
     }
 
-    // Update Status (Khusus Admin) [cite: 31]
     public function updateStatus(Request $request, Ticket $ticket)
     {
         if (!auth()->user()->is_admin) abort(403);
@@ -72,7 +69,6 @@ class TicketController extends Controller
         return back();
     }
 
-    // Kirim Komentar [cite: 26]
     public function storeComment(Request $request, Ticket $ticket)
     {
         Comment::create([
