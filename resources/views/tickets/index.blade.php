@@ -3,12 +3,19 @@
 @section('content')
 <div class="flex flex-col md:flex-row justify-between items-end mb-8 gap-4">
     <div>
-        <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Laporan Saya</h2>
-        <p class="text-slate-500 text-sm mt-1">Daftar riwayat pengaduan fasilitas.</p>
+        <h2 class="text-2xl font-bold text-slate-900 tracking-tight">
+            {{ auth()->user()->is_admin ? 'Laporan Pengaduan' : 'Laporan Saya' }}
+        </h2>
+        <p class="text-slate-500 text-sm mt-1">
+            {{ auth()->user()->is_admin ? 'Pantau dan kelola laporan mahasiswa.' : 'Daftar riwayat pengaduan fasilitas.' }}
+        </p>
     </div>
-    <a href="{{ route('tickets.create') }}" class="bg-slate-900 hover:bg-slate-800 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition shadow-sm">
-        + Buat Laporan
-    </a>
+
+    @if(!auth()->user()->is_admin)
+        <a href="{{ route('tickets.create') }}" class="bg-slate-900 hover:bg-slate-800 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition shadow-sm">
+            + Buat Laporan
+        </a>
+    @endif
 </div>
 
 <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
